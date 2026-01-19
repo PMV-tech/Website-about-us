@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMV Tech</title>
+
+<!-- Ajustar isso para puxar imagem da pasta de imagens -->
+<link rel="icon" href="c:\Users\vfrei\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState\sessions\5AF387CA11AA5CCE7A038F1B3D032FF7E3EF8EDE\transfers\2026-02\WhatsApp Image 2026-01-13 at 13.07.02.jpeg" sizes="32x32">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blue:#1e90ff;
+  --blue-glow:#4db2ff;
+  --bg:#050505;
+  --gray:#9ca3af;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat', sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* NAV */
+nav{
+  position:absolute;
+  top:0;
+  width:100%;
+  padding:25px 80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:10;
+}
+
+nav img{
+  height:42px;
+}
+
+nav ul{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
+
+nav a{
+  text-decoration:none;
+  color:#d1d5db;
+  font-size:.9rem;
+  letter-spacing:1px;
+}
+
+nav a:hover{
+  color:var(--blue);
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:120px 80px;
+  background:
+    radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
+    radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
+}
+
+/* LEFT TEXT */
+.hero-left{
+  position:relative;
+}
+
+.hero-left h1{
+  font-size:5rem;
+  font-weight:900;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.hero-left h1 span{
+  color:var(--blue);
+  text-shadow:0 0 25px var(--blue-glow);
+}
+
+.hero-left .tech-line{
+  margin:30px 0;
+  width:120px;
+  height:4px;
+  background:var(--blue);
+  box-shadow:0 0 20px var(--blue);
+}
+
+/* RIGHT CONTENT */
+.hero-right{
+  padding-left:60px;
+}
+
+.hero-right h2{
+  font-size:2.8rem;
+  font-weight:300;
+}
+
+.hero-right h2 strong{
+  color:var(--blue);
+  font-weight:700;
+}
+
+.hero-right p{
+  margin:30px 0;
+  font-size:1.1rem;
+  color:var(--gray);
+  max-width:500px;
+}
+
+.hero-right button{
+  padding:16px 45px;
+  background:transparent;
+  border:2px solid var(--blue);
+  color:#fff;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  box-shadow:0 0 30px rgba(30,144,255,.4);
+}
+
+.hero-right button:hover{
+  background:var(--blue);
+}
+
+/* DECOR ELEMENTS */
+.grid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+
+/* RESPONSIVO */
+@media(max-width:1000px){
+  .hero{
+    grid-template-columns:1fr;
+  }
+  .hero-right{
+    padding-left:0;
+    margin-top:80px;
+  }
+  .hero-left h1{
+    font-size:3.5rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <!-- Aqui está sem imagem, ajustar para colocar a logo (eu acho que é a logo)-->
+  <img src="" alt="PMV Tech">
+  <ul>
+    <li><a href="solu.html">SOLUÇÕES</a></li>
+    <li><a href="">TECNOLOGIA</a></li>
+<li><a href="empresa.html">EMPRESA</a></li>
+<li><a href="https://www.instagram.com/edu.f26/?next=%2F">CONTATO</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="grid"></div>
+
+  <div class="hero-left">
+    <h1>LET’S<br><span>BUILD</span><br>THE<br>FUTURE</h1>
+    <div class="tech-line"></div>
+  </div>
+
+  <div class="hero-right">
+    <h2>TECNOLOGIA <strong>QUE MOVE</strong><br>NEGÓCIOS</h2>
+    <p>
+      A PMV Tech desenvolve soluções digitais avançadas
+      em software, cloud e inovação para empresas que
+      querem liderar o futuro.
+    </p>
+    <button>SAIBA MAIS</button>
+  </div>
+</section>
+
+</body>
+</html>
+
+

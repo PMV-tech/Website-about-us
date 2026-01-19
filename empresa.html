@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMV Tech • Empresa</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blue:#1e90ff;
+  --blue-glow:#4db2ff;
+  --bg:#050505;
+  --bg-2:#0b0b0b;
+  --gray:#9ca3af;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat', sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:#fff;
+}
+
+/* NAV */
+nav{
+  padding:25px 80px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(0,0,0,.7);
+}
+
+nav img{
+  height:40px;
+}
+
+nav ul{
+  display:flex;
+  gap:35px;
+  list-style:none;
+}
+
+nav a{
+  color:#d1d5db;
+  text-decoration:none;
+  font-size:.9rem;
+  letter-spacing:1px;
+}
+
+nav a:hover{
+  color:var(--blue);
+}
+
+/* HERO */
+.hero{
+  min-height:70vh;
+  display:flex;
+  align-items:center;
+  padding:120px 80px;
+  background:
+    radial-gradient(circle at right, rgba(30,144,255,.15), transparent 45%);
+}
+
+.hero h1{
+  font-size:4rem;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.hero h1 span{
+  color:var(--blue);
+  text-shadow:0 0 20px var(--blue-glow);
+}
+
+.hero p{
+  margin-top:30px;
+  font-size:1.2rem;
+  color:var(--gray);
+  max-width:600px;
+}
+
+.hero-right{
+  padding-left:60px;
+}
+
+/* CONTENT */
+section{
+  padding:120px 80px;
+  background:var(--bg-2);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:50px;
+}
+
+.box{
+  border:1px solid rgba(30,144,255,.3);
+  padding:40px;
+  box-shadow:0 0 30px rgba(30,144,255,.15);
+}
+
+.box h2{
+  color:var(--blue);
+  margin-bottom:20px;
+}
+
+.box p{
+  color:#d1d5db;
+  line-height:1.8;
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  background:#000;
+  color:#9ca3af;
+}
+
+/* RESPONSIVO */
+@media(max-width:900px){
+  nav, .hero, section{
+    padding:80px 30px;
+  }
+  .hero h1{
+    font-size:2.8rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<li><a href="index.html">Voltar</a></li>
+<nav>
+  <img src="logo.png" alt="PMV Tech">
+  <ul>
+    <li><a href="index.html">INÍCIO</a></li>
+    <li><a href="#">SOLUÇÕES</a></li>
+    <li><a href="empresa.html">EMPRESA</a></li>
+    <li><a href="https://www.instagram.com/edu.f26/?next=%2F">CONTATO</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div>
+    <h1>Sobre a <span>PMV Tech</span></h1>
+    <p>
+  Somos a PMV Tech, uma empresa formada por quatro amigos apaixonados por tecnologia
+  e inovação. Atuamos no desenvolvimento de sistemas digitais para empresas,
+  comércios e lojas, criando soluções modernas, eficientes e personalizadas
+  para cada tipo de negócio.
+</p>
+
+<p>
+  A PMV Tech teve início em 2025, com o objetivo de transformar ideias em sistemas
+  reais que geram valor, organização e crescimento para nossos clientes.
+  Trabalhamos com foco em qualidade, desempenho e evolução constante.
+</p>
+
+<p>
+  Nossa equipe é formada por:
+  <br><br>
+  • Eduardo de Freitas<br>
+  • Enzo<br>
+  • Philippe<br>
+  • Kauan
+</p>
+
+  </div>
+</section>
+
+<section>
+  <div class="grid">
+    <div class="box">
+      <h2>Quem Somos</h2>
+      <p>
+        A PMV Tech nasceu com o propósito de transformar
+        ideias em soluções tecnológicas reais. Atuamos
+        no desenvolvimento de software, cloud e inovação
+        digital para empresas que buscam evolução contínua.
+      </p>
+    </div>
+
+    <div class="box">
+      <h2>Nossa Missão</h2>
+      <p>
+        Criar tecnologia inteligente que impulsiona
+        negócios, otimiza processos e gera resultados
+        sólidos e escaláveis.
+      </p>
+    </div>
+
+    <div class="box">
+      <h2>Visão & Valores</h2>
+      <p>
+        • Inovação constante<br>
+        • Excelência técnica<br>
+        • Transparência<br>
+        • Compromisso com resultados
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 • PMV Tech • Tecnologia e Inovação
+</footer>
+
+</body>
+</html>
+
