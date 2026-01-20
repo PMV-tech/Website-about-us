@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMV Tech | Solutions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+<link rel="icon" href="icon_bar.ico">
+
+<style>
+:root{
+  --blue:#1e90ff;
+  --blue-glow:#4db2ff;
+  --bg:#050505;
+  --gray:#9ca3af;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Montserrat', sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:#fff;
+  overflow-x: hidden;
+}
+
+/* NAV - MESMO MENU DAS OUTRAS PÁGINAS */
+nav{
+  padding:20px 40px;
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  background:rgba(0,0,0,.7);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* LADO ESQUERDO: Apenas Logo */
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+nav img{
+  height: 50px;
+  width: auto;
+}
+
+/* LADO DIREITO: Texto + Botão Idioma + Hamburger */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-brand {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+/* BOTAO IDIOMA */
+.lang-btn{
+  border:1px solid rgba(30,144,255,.6);
+  background:transparent;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.2s;
+  line-height:1;
+}
+
+.lang-btn:hover{
+  background:rgba(30,144,255,.15);
+}
+
+/* HAMBURGER MENU */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.3s ease;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* hidden */
+  width: 280px;
+  height: 100vh;
+  background: rgba(5, 5, 5, 0.98);
+  padding: 100px 30px 40px;
+  z-index: 999;
+  transition: right 0.4s ease;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
+  border-left: 1px solid rgba(30, 144, 255, 0.3);
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar-header {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-header img {
+  height: 40px;
+}
+
+.sidebar-header span {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.sidebar li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+}
+
+.sidebar a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: block;
+  transition: 0.3s;
+  padding: 8px 0;
+}
+
+.sidebar a:hover {
+  color: var(--blue);
+  padding-left: 10px;
+}
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* HERO */
+.hero{
+  padding: 140px 80px 80px;
+  text-align:center;
+  margin-top: 90px;
+  background: radial-gradient(circle at center, rgba(30,144,255,.1), transparent 60%);
+}
+
+.hero h1{
+  font-size:4rem;
+  font-weight:900;
+}
+
+.hero h1 span{
+  color:var(--blue);
+  text-shadow:0 0 20px var(--blue-glow);
+}
+
+.hero p{
+  margin-top:20px;
+  color:var(--gray);
+  font-size:1.1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* SOLUTIONS */
+.solutions{
+  padding:80px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:40px;
+}
+
+.card{
+  background:#0a0a0a;
+  border:1px solid rgba(255,255,255,.05);
+  padding:40px 30px;
+  transition:.3s;
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+  border: 1px solid rgba(30,144,255,.2);
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 40px rgba(30,144,255,.3);
+  border-color: rgba(30,144,255,.4);
+}
+
+.card h3{
+  color:var(--blue);
+  margin-bottom:15px;
+  font-size:1.4rem;
+}
+
+.card p{
+  color:var(--gray);
+  font-size:.95rem;
+  line-height:1.6;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav {
+    padding: 15px 20px;
+  }
+
+  .hero{
+    padding: 120px 20px 60px;
+  }
+
+  .hero h1{
+    font-size:3rem;
+  }
+
+  .solutions{
+    padding:40px;
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+  }
+
+  nav img {
+    height: 50px;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .nav-right {
+    gap: 12px;
+  }
+}
+
+/* Very small screens */
+@media(max-width: 480px) {
+  .nav-brand {
+    display: none;
+  }
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .solutions {
+    padding: 20px;
+  }
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  background:#000;
+  color:#9ca3af;
+}
+</style>
+</head>
+
+<body>
+<nav>
+  <div class="nav-left">
+    <a href="index-en.html"><img src="logo_pmv.png" alt="PMV Tech"></a> 
+  </div>
+
+  <div class="nav-right">
+    <span class="nav-brand">PMV Tech</span>
+
+    <!-- LANGUAGE BUTTON -->
+    <button class="lang-btn" id="langToggle" type="button">PT</button>
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="logo_pmv.png" alt="PMV Tech">
+    <span>PMV Tech</span>
+  </div>
+
+  <ul>
+    <li><a href="index-en.html">HOME</a></li>
+    <li><a href="solu-en.html">SOLUTIONS</a></li>
+    <li><a href="empresa-en.html">ABOUT US</a></li>
+    <li><a href="https://www.instagram.com/edu.f26/?next=%2F">CONTACT</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <h1>Our <span>Solutions</span></h1>
+  <p>Strategic technology to accelerate results and innovation.</p>
+</section>
+
+<section class="solutions">
+
+  <div class="card">
+    <h3>Software Development</h3>
+    <p>
+      Custom systems, web and mobile applications focused on performance,
+      scalability and security.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Cloud & Infrastructure</h3>
+    <p>
+      Migration, management and optimization of cloud environments,
+      ensuring high availability and cost reduction.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Process Automation</h3>
+    <p>
+      Smart automation to increase productivity,
+      reduce errors and speed up operations.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Technology Consulting</h3>
+    <p>
+      Digital strategy, system architecture and technical support
+      for critical business decisions.
+    </p>
+  </div>
+
+</section>
+
+<footer>
+  © PMV Tech • Technology & Innovation
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+
+  // Open/close sidebar
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.classList.toggle('active');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+
+  // Close sidebar on overlay click
+  overlay.addEventListener('click', function() {
+    hamburger.classList.remove('active');
+    sidebar.classList.remove('active');
+    this.classList.remove('active');
+  });
+
+  // Close sidebar clicking outside
+  document.addEventListener('click', function(e) {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+  });
+
+  // Close sidebar clicking a link
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  });
+
+  // Prevent close when clicking inside sidebar
+  sidebar.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // ---- LANGUAGE (PT/EN) ----
+  const langBtn = document.getElementById('langToggle');
+  if (langBtn) {
+    const path = window.location.pathname;
+    const file = path.split('/').pop() || 'index.html';
+    const isEnglish = file.includes('-en');
+
+    langBtn.textContent = isEnglish ? 'PT' : 'EN';
+
+    langBtn.addEventListener('click', function() {
+      const map = {
+        'index.html': 'index-en.html',
+        'empresa.html': 'empresa-en.html',
+        'solu.html': 'solu-en.html',
+
+        'index-en.html': 'index.html',
+        'empresa-en.html': 'empresa.html',
+        'solu-en.html': 'solu.html',
+      };
+
+      const target = map[file] || (isEnglish ? 'index.html' : 'index-en.html');
+      const base = path.replace(file, '');
+      window.location.href = base + target;
+    });
+  }
+});
+</script>
+
+</body>
+</html>
