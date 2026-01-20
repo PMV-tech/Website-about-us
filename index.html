@@ -90,7 +90,7 @@ body{
 
 /* NAV - MODIFICADO */
 nav{
-  padding:20px 40px;
+  padding:15px 40px; /* Reduzido de 20px para 15px */
   display:flex;
   justify-content: space-between;
   align-items:center;
@@ -100,6 +100,7 @@ nav{
   width: 100%;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  height: 70px; /* Altura fixa para consistência */
 }
 
 /* LADO ESQUERDO: Apenas Logo */
@@ -109,7 +110,7 @@ nav{
 }
 
 nav img{
-  height: 50px;
+  height: 45px; /* Reduzido de 50px para 45px */
   width: auto;
 }
 
@@ -132,13 +133,14 @@ nav img{
   border:1px solid rgba(30,144,255,.6);
   background:transparent;
   color:var(--text-color);
-  padding:10px 14px;
+  padding:8px 12px; /* Reduzido de 10px 14px */
   border-radius:10px;
   font-weight:700;
   letter-spacing:1px;
   cursor:pointer;
   transition:.2s;
   line-height:1;
+  font-size: 0.9rem;
 }
 
 .lang-btn:hover{
@@ -150,8 +152,8 @@ nav img{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 21px;
+  width: 26px; /* Reduzido de 30px */
+  height: 18px; /* Reduzido de 21px */
   cursor: pointer;
   z-index: 1001;
   transition: transform 0.3s ease;
@@ -159,15 +161,15 @@ nav img{
 
 .hamburger span {
   display: block;
-  height: 3px;
+  height: 2.5px; /* Reduzido de 3px */
   width: 100%;
   background-color: var(--text-color);
-  border-radius: 3px;
+  border-radius: 2px;
   transition: 0.3s;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+  transform: translateY(7.5px) rotate(45deg); /* Ajustado para nova altura */
 }
 
 .hamburger.active span:nth-child(2) {
@@ -175,7 +177,7 @@ nav img{
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-7.5px) rotate(-45deg); /* Ajustado para nova altura */
 }
 
 /* SIDEBAR */
@@ -186,7 +188,7 @@ nav img{
   width: 280px;
   height: 100vh;
   background: var(--sidebar-bg);
-  padding: 100px 30px 40px;
+  padding: 90px 30px 40px; /* Reduzido de 100px para 90px no topo */
   z-index: 999;
   transition: right 0.4s ease;
   box-shadow: -5px 0 30px var(--shadow-color);
@@ -199,7 +201,7 @@ nav img{
 
 .sidebar-header {
   position: absolute;
-  top: 25px;
+  top: 20px; /* Reduzido de 25px */
   left: 30px;
   display: flex;
   align-items: center;
@@ -267,9 +269,9 @@ nav img{
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
-  padding: 140px 80px 80px;
+  padding: 110px 80px 80px; /* Reduzido de 140px para 110px no topo */
   background: var(--hero-gradient);
-  margin-top: 90px;
+  margin-top: 70px; /* Reduzido de 90px para 70px */
 }
 
 /* LEFT TEXT */
@@ -361,12 +363,14 @@ footer{
 /* RESPONSIVO */
 @media(max-width:900px){
   nav {
-    padding: 15px 20px;
+    padding: 12px 20px; /* Reduzido de 15px */
+    height: 65px;
   }
 
   .hero{
-    padding: 120px 20px 60px;
+    padding: 100px 20px 60px; /* Reduzido de 120px para 100px no topo */
     grid-template-columns: 1fr;
+    margin-top: 65px; /* Ajustado para altura do nav */
   }
 
   .hero h1{
@@ -378,11 +382,12 @@ footer{
   }
 
   nav img {
-    height: 50px;
+    height: 40px; /* Reduzido de 50px */
   }
 
   .sidebar {
     width: 250px;
+    padding: 85px 25px 40px; /* Ajustado */
   }
 
   .nav-right {
@@ -401,6 +406,10 @@ footer{
   .hero-right h2 {
     font-size: 2rem;
   }
+  
+  .sidebar-header {
+    top: 18px;
+  }
 }
 
 /* Para telas muito pequenas */
@@ -415,13 +424,32 @@ footer{
   
   .theme-toggle {
     font-size: 1.2rem;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
   }
   
   .lang-btn {
-    padding: 8px 12px;
-    font-size: 0.9rem;
+    padding: 7px 10px;
+    font-size: 0.85rem;
+  }
+  
+  nav {
+    padding: 10px 15px;
+    height: 60px;
+  }
+  
+  .hero {
+    margin-top: 60px;
+    padding: 90px 15px 50px;
+  }
+  
+  nav img {
+    height: 38px;
+  }
+  
+  .hamburger {
+    width: 24px;
+    height: 16px;
   }
 }
 </style>
