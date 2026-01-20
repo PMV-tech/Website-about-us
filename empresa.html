@@ -26,53 +26,186 @@
 body{
   background:var(--bg);
   color:#fff;
+  overflow-x: hidden;
 }
 
-/* NAV */
+/* NAV - MODIFICADO */
 nav{
-  padding:25px 80px;
+  padding:20px 40px;
   display:flex;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items:center;
   background:rgba(0,0,0,.7);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* LADO ESQUERDO: Apenas Logo */
+.nav-left {
+  display: flex;
+  align-items: center;
 }
 
 nav img{
-  height:100px;
-  width:auto;
+  height: 50px;
+  width: auto;
 }
 
-nav ul{
-  display:flex;
-  gap:35px;
-  list-style:none;
+/* LADO DIREITO: Texto + Hamburger */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
-nav a{
-  color:#d1d5db;
-  text-decoration:none;
-  font-size:.9rem;
-  letter-spacing:1px;
+.nav-brand {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-right: 10px;
 }
 
-nav a:hover{
-  color:var(--blue);
+/* HAMBURGER MENU */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.3s ease;
 }
 
-/* HERO */
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Escondido fora da tela */
+  width: 280px;
+  height: 100vh;
+  background: rgba(5, 5, 5, 0.98);
+  padding: 100px 30px 40px;
+  z-index: 999;
+  transition: right 0.4s ease;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
+  border-left: 1px solid rgba(30, 144, 255, 0.3);
+}
+
+.sidebar.active {
+  right: 0; /* Aparece na tela */
+}
+
+.sidebar-header {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-header img {
+  height: 40px;
+}
+
+.sidebar-header span {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.sidebar li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
+}
+
+.sidebar a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: block;
+  transition: 0.3s;
+  padding: 8px 0;
+}
+
+.sidebar a:hover {
+  color: var(--blue);
+  padding-left: 10px;
+}
+
+/* OVERLAY QUANDO MENU ABERTO */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* HERO - CENTRALIZADO COM WIDTH MAIOR E MENOS ESPAÇO */
 .hero{
   min-height:70vh;
   display:flex;
-  align-items:center;
-  padding:120px 80px;
-  background:
-  radial-gradient(circle at right, rgba(30,144,255,.15), transparent 45%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 80px 80px;
+  background: radial-gradient(circle at center, rgba(30,144,255,.15), transparent 45%);
+  margin-top: 70px;
+  text-align: center;
+}
+
+.hero > div {
+  max-width: 1100px;
+  width: 100%;
 }
 
 .hero h1{
   font-size:4rem;
   font-weight:900;
   text-transform:uppercase;
+  margin-bottom: 25px;
 }
 
 .hero h1 span{
@@ -81,26 +214,65 @@ nav a:hover{
 }
 
 .hero p{
-  margin-top:30px;
+  margin-bottom: 20px;
   font-size:1.2rem;
   color:var(--gray);
-  max-width:600px;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.hero-right{
-  padding-left:60px;
+/* ESTILO PARA A LISTA DE NOMES EM PIRÂMIDE */
+.team-list {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.team-list p {
+  font-size: 1.2rem;
+  color: var(--gray);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.team-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.name-item {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  line-height: 1.8;
+  text-align: center;
+  width: 100%;
+}
+
+.name-item::before {
+  content: "• ";
+  color: var(--blue);
+  margin-right: 8px;
 }
 
 /* CONTENT */
 section{
-  padding:120px 80px;
+  padding:80px;
   background:var(--bg-2);
+  display: flex;
+  justify-content: center;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:50px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .box{
@@ -109,14 +281,14 @@ section{
   box-shadow:0 0 30px rgba(30,144,255,.15);
   display:grid;
   transition:.3s;
-  box-shadow:0 0 20px rgba(0,0,0,.4);
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
 }
 
- .box:hover{
- transform:translateY(-8px);
- box-shadow:0 0 40px rgba(30,144,255,.3);
+.box:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 40px rgba(30,144,255,.3);
 }
+
 .box h2{
   color:var(--blue);
   margin-bottom:20px;
@@ -135,16 +307,75 @@ footer{
   color:#9ca3af;
 }
 
-  .strong{
-    margin-left: -20px;
-  }
 /* RESPONSIVO */
 @media(max-width:900px){
-  nav, .hero, section{
-    padding:80px 30px;
+  nav {
+    padding: 12px 20px;
   }
+  
+  .hero, section{
+    padding: 80px 30px 60px;
+  }
+  
   .hero h1{
     font-size:2.8rem;
+  }
+  
+  .nav-brand {
+    font-size: 1rem;
+  }
+  
+  nav img {
+    height: 50px;
+  }
+  
+  .sidebar {
+    width: 250px;
+  }
+  
+  .nav-right {
+    gap: 20px;
+  }
+  
+  .grid {
+    padding: 0 20px;
+  }
+  
+  .hero {
+    margin-top: 60px;
+    padding-top: 70px;
+  }
+  
+  .name-item {
+    font-size: 1.1rem;
+  }
+}
+
+/* Para telas muito pequenas, esconder o texto PMV Tech */
+@media(max-width: 480px) {
+  .nav-brand {
+    display: none;
+  }
+  
+  .nav-right {
+    gap: 10px;
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  .hero {
+    margin-top: 50px;
+    padding-top: 60px;
+  }
+  
+  .name-item {
+    font-size: 1rem;
   }
 }
 </style>
@@ -152,41 +383,65 @@ footer{
 
 <body>
 <nav>
-  <img src="logo_pmv.png" alt="PMV Tech">
-  <strong>PMV Tech</strong>
+  <!-- Lado esquerdo: Apenas Logo -->
+  <div class="nav-left">
+    <a href="index.html"><img src="logo_pmv.png" alt="PMV Tech"></a> 
+  </div>
+  
+  <!-- Lado direito: Texto + Hamburger -->
+  <div class="nav-right">
+    <span class="nav-brand">PMV Tech</span>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- Overlay para fechar menu ao clicar fora -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <img src="logo_pmv.png" alt="PMV Tech">
+    <span>PMV Tech</span>
+  </div>
+  
   <ul>
     <li><a href="index.html">INÍCIO</a></li>
     <li><a href="solu.html">SOLUÇÕES</a></li>
     <li><a href="empresa.html">EMPRESA</a></li>
     <li><a href="https://www.instagram.com/edu.f26/?next=%2F">CONTATO</a></li>
   </ul>
-</nav>
+</div>
 
 <section class="hero">
   <div>
     <h1>Sobre a <span>PMV Tech</span></h1>
     <p>
-  Somos a PMV Tech, uma empresa formada por quatro amigos apaixonados por tecnologia
-  e inovação. Atuamos no desenvolvimento de sistemas digitais para empresas,
-  comércios e lojas, criando soluções modernas, eficientes e personalizadas
-  para cada tipo de negócio.
-</p>
+      Somos a PMV Tech, uma empresa formada por quatro amigos apaixonados por tecnologia
+      e inovação. Atuamos no desenvolvimento de sistemas digitais para empresas,
+      comércios e lojas, criando soluções modernas, eficientes e personalizadas
+      para cada tipo de negócio.
+    </p>
 
-<p>
-  A PMV Tech teve início em 2025, com o objetivo de transformar ideias em sistemas
-  reais que geram valor, organização e crescimento para nossos clientes.
-  Trabalhamos com foco em qualidade, desempenho e evolução constante.
-</p>
+    <p>
+      A PMV Tech teve início em 2025, com o objetivo de transformar ideias em sistemas
+      reais que geram valor, organização e crescimento para nossos clientes.
+      Trabalhamos com foco em qualidade, desempenho e evolução constante.
+    </p>
 
-<p>
-  Nossa equipe é formada por:
-  <br><br>
-  • Eduardo de Freitas Gomes Lopes<br>
-  • Enzo Dutervil Zoccherato<br>
-  • Phillipe Lima Oliveira dos Santos<br>
-  • Kauan Nascimento Ferreira
-</p>
-
+    <div class="team-list">
+      <p>Nossa equipe é formada por:</p>
+      <div class="team-names">
+        <div class="name-item">Eduardo de Freitas Gomes Lopes</div>
+        <div class="name-item">Enzo Dutervil Zoccherato</div>
+        <div class="name-item">Phillipe Lima Oliveira dos Santos</div>
+        <div class="name-item">Kauan Nascimento Ferreira</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -224,26 +479,56 @@ footer{
 </section>
 
 <footer>
-  © 2026 • PMV Tech • Tecnologia e Inovação
+  © PMV Tech • Tecnologia e Inovação
 </footer>
+
+<script>
+// JavaScript para controlar a sidebar
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
+  
+  // Abrir/fechar sidebar
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    this.classList.toggle('active');
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+  });
+  
+  // Fechar sidebar ao clicar no overlay
+  overlay.addEventListener('click', function() {
+    hamburger.classList.remove('active');
+    sidebar.classList.remove('active');
+    this.classList.remove('active');
+  });
+  
+  // Fechar sidebar ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+  });
+  
+  // Fechar sidebar ao clicar em um link
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  });
+  
+  // Prevenir fechamento ao clicar dentro da sidebar
+  sidebar.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+});
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
