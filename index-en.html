@@ -7,12 +7,46 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
 <link rel ="icon" href = "icon_bar.ico">
+<!-- Ícones para tema -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root{
   --blue:#1e90ff;
   --blue-glow:#4db2ff;
   --bg:#050505;
   --gray:#9ca3af;
+  --text-color: #fff;
+  --nav-bg: rgba(0,0,0,.7);
+  --sidebar-bg: rgba(5, 5, 5, 0.98);
+  --footer-bg: #000;
+  --button-text: #fff;
+  --button-text-hover: #fff;
+  --grid-color: rgba(255,255,255,.04);
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+  --border-color: rgba(30, 144, 255, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --hero-gradient: radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
+                   radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
+}
+
+/* LIGHT THEME */
+:root.light-theme {
+  --blue: #0066cc;
+  --blue-glow: #4db2ff;
+  --bg: #f5f9ff;
+  --gray: #5a6a85;
+  --text-color: #111827;
+  --nav-bg: rgba(245, 249, 255, 0.95);
+  --sidebar-bg: rgba(245, 249, 255, 0.98);
+  --footer-bg: #e6f0ff;
+  --button-text: #0066cc; /* Blue text in light theme */
+  --button-text-hover: #fff; /* White text on hover */
+  --grid-color: rgba(0, 0, 0, 0.05);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 102, 204, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hero-gradient: radial-gradient(circle at top right, rgba(0,102,204,.1), transparent 45%),
+                   radial-gradient(circle at bottom left, rgba(0,102,204,.05), transparent 45%);
 }
 
 *{
@@ -20,64 +54,90 @@
   padding:0;
   box-sizing:border-box;
   font-family:'Montserrat', sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 body{
   background:var(--bg);
-  color:#fff;
+  color:var(--text-color);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* NAV - MODIFICADO */
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg);
+  background-color: rgba(30, 144, 255, 0.1);
+}
+
+/* NAV - MODIFIED */
 nav{
-  padding:20px 40px;
+  padding:15px 40px; /* Reduced from 20px to 15px */
   display:flex;
   justify-content: space-between;
   align-items:center;
-  background:rgba(0,0,0,.7);
+  background:var(--nav-bg);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  backdrop-filter: blur(10px);
+  height: 70px; /* Fixed height for consistency */
 }
 
-/* LADO ESQUERDO: Apenas Logo */
+/* LEFT SIDE: Logo only */
 .nav-left {
   display: flex;
   align-items: center;
 }
 
 nav img{
-  height: 50px;
+  height: 45px; /* Reduced from 50px to 45px */
   width: auto;
 }
 
-/* LADO DIREITO: Texto + Hamburger */
+/* RIGHT SIDE: Text + Language Button + Theme Button + Hamburger */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .nav-brand {
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 700;
   margin-right: 10px;
 }
 
-/* BOTAO IDIOMA */
+/* LANGUAGE BUTTON */
 .lang-btn{
   border:1px solid rgba(30,144,255,.6);
   background:transparent;
-  color:#fff;
-  padding:10px 14px;
+  color:var(--text-color);
+  padding:8px 12px; /* Reduced from 10px 14px */
   border-radius:10px;
   font-weight:700;
   letter-spacing:1px;
   cursor:pointer;
   transition:.2s;
   line-height:1;
+  font-size: 0.9rem;
 }
 
 .lang-btn:hover{
@@ -89,8 +149,8 @@ nav img{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 21px;
+  width: 26px; /* Reduced from 30px */
+  height: 18px; /* Reduced from 21px */
   cursor: pointer;
   z-index: 1001;
   transition: transform 0.3s ease;
@@ -98,15 +158,15 @@ nav img{
 
 .hamburger span {
   display: block;
-  height: 3px;
+  height: 2.5px; /* Reduced from 3px */
   width: 100%;
-  background-color: #fff;
-  border-radius: 3px;
+  background-color: var(--text-color);
+  border-radius: 2px;
   transition: 0.3s;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+  transform: translateY(7.5px) rotate(45deg); /* Adjusted for new height */
 }
 
 .hamburger.active span:nth-child(2) {
@@ -114,31 +174,31 @@ nav img{
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-7.5px) rotate(-45deg); /* Adjusted for new height */
 }
 
 /* SIDEBAR */
 .sidebar {
   position: fixed;
   top: 0;
-  right: -300px; /* Escondido fora da tela */
+  right: -300px; /* Hidden off screen */
   width: 280px;
   height: 100vh;
-  background: rgba(5, 5, 5, 0.98);
-  padding: 100px 30px 40px;
+  background: var(--sidebar-bg);
+  padding: 90px 30px 40px; /* Reduced from 100px to 90px top padding */
   z-index: 999;
   transition: right 0.4s ease;
-  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
-  border-left: 1px solid rgba(30, 144, 255, 0.3);
+  box-shadow: -5px 0 30px var(--shadow-color);
+  border-left: 1px solid var(--border-color);
 }
 
 .sidebar.active {
-  right: 0; /* Aparece na tela */
+  right: 0; /* Appears on screen */
 }
 
 .sidebar-header {
   position: absolute;
-  top: 25px;
+  top: 20px; /* Reduced from 25px */
   left: 30px;
   display: flex;
   align-items: center;
@@ -162,12 +222,12 @@ nav img{
 
 .sidebar li {
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
   padding-bottom: 15px;
 }
 
 .sidebar a {
-  color: #d1d5db;
+  color: var(--gray);
   text-decoration: none;
   font-size: 1.1rem;
   letter-spacing: 1px;
@@ -181,14 +241,14 @@ nav img{
   padding-left: 10px;
 }
 
-/* OVERLAY QUANDO MENU ABERTO */
+/* OVERLAY WHEN MENU IS OPEN */
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-bg);
   z-index: 998;
   opacity: 0;
   visibility: hidden;
@@ -200,17 +260,15 @@ nav img{
   visibility: visible;
 }
 
-/* HERO - CONTEÚDO DA PÁGINA INICIAL */
+/* HERO - HOME PAGE CONTENT */
 .hero{
   min-height:100vh;
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
-  padding: 140px 80px 80px;
-  background:
-    radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
-  margin-top: 90px;
+  padding: 110px 80px 80px; /* Reduced from 140px to 110px top padding */
+  background: var(--hero-gradient);
+  margin-top: 70px; /* Reduced from 90px to 70px */
 }
 
 /* LEFT TEXT */
@@ -223,6 +281,7 @@ nav img{
   font-weight:900;
   line-height:1;
   text-transform:uppercase;
+  color: var(--text-color);
 }
 
 .hero-left h1 span{
@@ -246,6 +305,7 @@ nav img{
 .hero-right h2{
   font-size:2.8rem;
   font-weight:300;
+  color: var(--text-color);
 }
 
 .hero-right h2 strong{
@@ -260,20 +320,22 @@ nav img{
   max-width:500px;
 }
 
+/* "LEARN MORE" BUTTON - FIXED */
 .hero-right button{
   padding:16px 45px;
   background:transparent;
   border:2px solid var(--blue);
-  color:#fff;
+  color:var(--button-text); /* Uses specific button variable */
   font-weight:700;
   letter-spacing:1px;
   cursor:pointer;
   box-shadow:0 0 30px rgba(30,144,255,.4);
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .hero-right button:hover{
   background:var(--blue);
+  color:var(--button-text-hover); /* White text on hover */
 }
 
 /* DECOR ELEMENTS */
@@ -281,21 +343,31 @@ nav img{
   position:absolute;
   inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size:80px 80px;
   pointer-events:none;
 }
 
-/* RESPONSIVO */
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  background:var(--footer-bg);
+  color:var(--gray);
+}
+
+/* RESPONSIVE */
 @media(max-width:900px){
   nav {
-    padding: 15px 20px;
+    padding: 12px 20px; /* Reduced from 15px */
+    height: 65px;
   }
 
   .hero{
-    padding: 120px 20px 60px;
+    padding: 100px 20px 60px; /* Reduced from 120px to 100px top padding */
     grid-template-columns: 1fr;
+    margin-top: 65px; /* Adjusted for nav height */
   }
 
   .hero h1{
@@ -307,15 +379,16 @@ nav img{
   }
 
   nav img {
-    height: 50px;
+    height: 40px; /* Reduced from 50px */
   }
 
   .sidebar {
     width: 250px;
+    padding: 85px 25px 40px; /* Adjusted */
   }
 
   .nav-right {
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero-right{
@@ -330,21 +403,51 @@ nav img{
   .hero-right h2 {
     font-size: 2rem;
   }
+  
+  .sidebar-header {
+    top: 18px;
+  }
 }
 
-/* Para telas muito pequenas */
+/* For very small screens */
 @media(max-width: 480px) {
   .nav-brand {
     display: none;
   }
-}
-
-/* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  background:#000;
-  color:#9ca3af;
+  
+  .nav-right {
+    gap: 8px;
+  }
+  
+  .theme-toggle {
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .lang-btn {
+    padding: 7px 10px;
+    font-size: 0.85rem;
+  }
+  
+  nav {
+    padding: 10px 15px;
+    height: 60px;
+  }
+  
+  .hero {
+    margin-top: 60px;
+    padding: 90px 15px 50px;
+  }
+  
+  nav img {
+    height: 38px;
+  }
+  
+  .hamburger {
+    width: 24px;
+    height: 16px;
+  }
 }
 </style>
 </head>
@@ -358,7 +461,12 @@ footer{
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
 
-    <!-- BOTAO IDIOMA -->
+    <!-- THEME BUTTON -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <i class="fas fa-sun"></i>
+    </button>
+
+    <!-- LANGUAGE BUTTON -->
     <button class="lang-btn" id="langToggle" type="button">PT</button>
 
     <div class="hamburger" id="hamburger">
@@ -414,7 +522,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
 
-  // Abrir/fechar sidebar
+  // Open/close sidebar
   hamburger.addEventListener('click', function(e) {
     e.stopPropagation();
     this.classList.toggle('active');
@@ -422,14 +530,14 @@ document.addEventListener('DOMContentLoaded', function() {
     overlay.classList.toggle('active');
   });
 
-  // Fechar sidebar ao clicar no overlay
+  // Close sidebar when clicking overlay
   overlay.addEventListener('click', function() {
     hamburger.classList.remove('active');
     sidebar.classList.remove('active');
     this.classList.remove('active');
   });
 
-  // Fechar sidebar ao clicar fora
+  // Close sidebar when clicking outside
   document.addEventListener('click', function(e) {
     if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
       hamburger.classList.remove('active');
@@ -438,7 +546,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Fechar sidebar ao clicar em um link
+  // Close sidebar when clicking a link
   const sidebarLinks = document.querySelectorAll('.sidebar a');
   sidebarLinks.forEach(link => {
     link.addEventListener('click', function() {
@@ -448,7 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Prevenir fechamento ao clicar dentro da sidebar
+  // Prevent closing when clicking inside sidebar
   sidebar.addEventListener('click', function(e) {
     e.stopPropagation();
   });
@@ -478,6 +586,74 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = base + target;
     });
   }
+
+  // =========== THEME SYSTEM ===========
+  
+  // Theme elements
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+  const root = document.documentElement;
+  
+  // Check saved preference or use system preference
+  const savedTheme = localStorage.getItem('pmv-tech-theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  
+  // Apply theme: saved > system preference > default (dark)
+  let currentTheme = 'dark';
+  
+  if (savedTheme) {
+    currentTheme = savedTheme;
+  } else if (prefersLight) {
+    currentTheme = 'light';
+  }
+  
+  // Apply initial theme
+  if (currentTheme === 'light') {
+    root.classList.add('light-theme');
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon'); // Light theme = moon icon
+  } else {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun'); // Dark theme = sun icon
+  }
+  
+  // Toggle theme when clicking button
+  themeToggle.addEventListener('click', function() {
+    // Toggle class on root element
+    root.classList.toggle('light-theme');
+    
+    // Check which theme is active
+    const isLightTheme = root.classList.contains('light-theme');
+    
+    // Toggle icon CORRECTLY
+    if (isLightTheme) {
+      // Light theme active = show moon icon
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+      // Save preference
+      localStorage.setItem('pmv-tech-theme', 'light');
+    } else {
+      // Dark theme active = show sun icon
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+      // Save preference
+      localStorage.setItem('pmv-tech-theme', 'dark');
+    }
+    
+    // Visual click effect
+    themeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      themeToggle.style.transform = 'scale(1)';
+    }, 150);
+  });
+  
+  // Add smooth transition only after page loads
+  // This prevents animations during initial loading
+  setTimeout(() => {
+    document.querySelectorAll('*').forEach(el => {
+      el.style.transition = 'background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease';
+    });
+  }, 100);
 });
 </script>
 
