@@ -110,9 +110,13 @@ section{
   display:grid;
   transition:.3s;
   box-shadow:0 0 20px rgba(0,0,0,.4);
-  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));;
 }
 
+ .box:hover{
+ transform:translateY(-8px);
+ box-shadow:0 0 40px rgba(30,144,255,.3);
+}
 .box h2{
   color:var(--blue);
   margin-bottom:20px;
@@ -225,6 +229,7 @@ footer{
 
 </body>
 </html>
+
 
 
 
