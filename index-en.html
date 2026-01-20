@@ -28,7 +28,7 @@ body{
   overflow-x: hidden;
 }
 
-/* NAV */
+/* NAV - MODIFICADO */
 nav{
   padding:20px 40px;
   display:flex;
@@ -41,27 +41,32 @@ nav{
   z-index: 1000;
 }
 
-.nav-left{
-  display:flex;
-  align-items:center;
+/* LADO ESQUERDO: Apenas Logo */
+.nav-left {
+  display: flex;
+  align-items: center;
 }
 
 nav img{
-  height:50px;
+  height: 50px;
+  width: auto;
 }
 
-.nav-right{
-  display:flex;
-  align-items:center;
-  gap:18px;
+/* LADO DIREITO: Texto + Hamburger */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
-.nav-brand{
-  font-size:1.2rem;
-  font-weight:700;
+.nav-brand {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-right: 10px;
 }
 
-/* LANGUAGE BUTTON */
+/* BOTAO IDIOMA */
 .lang-btn{
   border:1px solid rgba(30,144,255,.6);
   background:transparent;
@@ -69,112 +74,171 @@ nav img{
   padding:10px 14px;
   border-radius:10px;
   font-weight:700;
+  letter-spacing:1px;
   cursor:pointer;
+  transition:.2s;
+  line-height:1;
 }
 
 .lang-btn:hover{
   background:rgba(30,144,255,.15);
 }
 
-/* HAMBURGER */
-.hamburger{
-  width:30px;
-  height:21px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  cursor:pointer;
+/* HAMBURGER MENU */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+  z-index: 1001;
+  transition: transform 0.3s ease;
 }
 
-.hamburger span{
-  height:3px;
-  background:#fff;
-  border-radius:3px;
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
 }
 
 /* SIDEBAR */
-.sidebar{
-  position:fixed;
-  right:-300px;
-  top:0;
-  width:280px;
-  height:100vh;
-  background:rgba(5,5,5,.98);
-  padding:100px 30px;
-  transition:.4s;
-  z-index:999;
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Escondido fora da tela */
+  width: 280px;
+  height: 100vh;
+  background: rgba(5, 5, 5, 0.98);
+  padding: 100px 30px 40px;
+  z-index: 999;
+  transition: right 0.4s ease;
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
+  border-left: 1px solid rgba(30, 144, 255, 0.3);
 }
 
-.sidebar.active{ right:0; }
-
-.sidebar-header{
-  position:absolute;
-  top:25px;
-  left:30px;
-  display:flex;
-  gap:10px;
-  align-items:center;
+.sidebar.active {
+  right: 0; /* Aparece na tela */
 }
 
-.sidebar-header img{ height:40px; }
-
-.sidebar-header span{
-  color:var(--blue);
-  font-weight:700;
+.sidebar-header {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.sidebar ul{ list-style:none; margin-top:30px; }
-
-.sidebar li{
-  margin-bottom:20px;
-  border-bottom:1px solid rgba(255,255,255,.1);
-  padding-bottom:15px;
+.sidebar-header img {
+  height: 40px;
 }
 
-.sidebar a{
-  color:#d1d5db;
-  text-decoration:none;
-  font-size:1.1rem;
+.sidebar-header span {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1.1rem;
 }
 
-/* OVERLAY */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  opacity:0;
-  visibility:hidden;
-  transition:.3s;
-  z-index:998;
+.sidebar ul {
+  list-style: none;
+  margin-top: 30px;
 }
 
-.overlay.active{
-  opacity:1;
-  visibility:visible;
+.sidebar li {
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 15px;
 }
 
-/* HERO */
+.sidebar a {
+  color: #d1d5db;
+  text-decoration: none;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  display: block;
+  transition: 0.3s;
+  padding: 8px 0;
+}
+
+.sidebar a:hover {
+  color: var(--blue);
+  padding-left: 10px;
+}
+
+/* OVERLAY QUANDO MENU ABERTO */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* HERO - CONTEÚDO DA PÁGINA INICIAL */
 .hero{
   min-height:100vh;
   display:grid;
   grid-template-columns:1fr 1fr;
-  padding:140px 80px;
-  margin-top:90px;
+  align-items:center;
+  padding: 140px 80px 80px;
   background:
     radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
     radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
+  margin-top: 90px;
+}
+
+/* LEFT TEXT */
+.hero-left{
+  position:relative;
 }
 
 .hero-left h1{
   font-size:5rem;
   font-weight:900;
+  line-height:1;
   text-transform:uppercase;
 }
 
 .hero-left h1 span{
   color:var(--blue);
+  text-shadow:0 0 25px var(--blue-glow);
 }
 
+.hero-left .tech-line{
+  margin:30px 0;
+  width:120px;
+  height:4px;
+  background:var(--blue);
+  box-shadow:0 0 20px var(--blue);
+}
+
+/* RIGHT CONTENT */
 .hero-right{
   padding-left:60px;
 }
@@ -186,6 +250,7 @@ nav img{
 
 .hero-right h2 strong{
   color:var(--blue);
+  font-weight:700;
 }
 
 .hero-right p{
@@ -201,11 +266,77 @@ nav img{
   border:2px solid var(--blue);
   color:#fff;
   font-weight:700;
+  letter-spacing:1px;
   cursor:pointer;
+  box-shadow:0 0 30px rgba(30,144,255,.4);
+  transition: 0.3s;
 }
 
 .hero-right button:hover{
   background:var(--blue);
+}
+
+/* DECOR ELEMENTS */
+.grid-bg{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;
+}
+
+/* RESPONSIVO */
+@media(max-width:900px){
+  nav {
+    padding: 15px 20px;
+  }
+
+  .hero{
+    padding: 120px 20px 60px;
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1{
+    font-size:2.5rem;
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+  }
+
+  nav img {
+    height: 50px;
+  }
+
+  .sidebar {
+    width: 250px;
+  }
+
+  .nav-right {
+    gap: 12px;
+  }
+
+  .hero-right{
+    padding-left:0;
+    margin-top: 60px;
+  }
+
+  .hero-left h1 {
+    font-size: 3rem;
+  }
+
+  .hero-right h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Para telas muito pequenas */
+@media(max-width: 480px) {
+  .nav-brand {
+    display: none;
+  }
 }
 
 /* FOOTER */
@@ -219,7 +350,6 @@ footer{
 </head>
 
 <body>
-
 <nav>
   <div class="nav-left">
     <a href="index-en.html"><img src="logo_pmv.png" alt="PMV Tech"></a>
@@ -227,10 +357,14 @@ footer{
 
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
-    <button class="lang-btn" id="langToggle">PT</button>
+
+    <!-- BOTAO IDIOMA -->
+    <button class="lang-btn" id="langToggle" type="button">PT</button>
 
     <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </div>
 </nav>
@@ -239,9 +373,10 @@ footer{
 
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
-    <img src="logo_pmv.png">
+    <img src="logo_pmv.png" alt="PMV Tech">
     <span>PMV Tech</span>
   </div>
+
   <ul>
     <li><a href="index-en.html">HOME</a></li>
     <li><a href="solu-en.html">SOLUTIONS</a></li>
@@ -251,16 +386,19 @@ footer{
 </div>
 
 <section class="hero">
+  <div class="grid-bg"></div>
+
   <div class="hero-left">
     <h1>LET'S<br><span>BUILD</span><br>THE<br>FUTURE</h1>
+    <div class="tech-line"></div>
   </div>
 
   <div class="hero-right">
     <h2>TECHNOLOGY <strong>THAT MOVES</strong><br>BUSINESSES</h2>
     <p>
-      PMV Tech develops advanced digital solutions in
-      software, cloud and innovation for companies that
-      want to lead the future.
+      PMV Tech develops advanced digital solutions
+      in software, cloud and innovation for companies
+      that want to lead the future.
     </p>
     <a href="empresa-en.html"><button>LEARN MORE</button></a>
   </div>
@@ -271,24 +409,75 @@ footer{
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
 
-  hamburger.onclick = e => {
+  // Abrir/fechar sidebar
+  hamburger.addEventListener('click', function(e) {
     e.stopPropagation();
+    this.classList.toggle('active');
     sidebar.classList.toggle('active');
     overlay.classList.toggle('active');
-  };
+  });
 
-  overlay.onclick = () => {
+  // Fechar sidebar ao clicar no overlay
+  overlay.addEventListener('click', function() {
+    hamburger.classList.remove('active');
     sidebar.classList.remove('active');
-    overlay.classList.remove('active');
-  };
+    this.classList.remove('active');
+  });
 
+  // Fechar sidebar ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    }
+  });
+
+  // Fechar sidebar ao clicar em um link
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  });
+
+  // Prevenir fechamento ao clicar dentro da sidebar
+  sidebar.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  // ---- LANGUAGE (PT/EN) ----
   const langBtn = document.getElementById('langToggle');
-  langBtn.onclick = () => window.location.href = 'index.html';
+  if (langBtn) {
+    const path = window.location.pathname;
+    const file = path.split('/').pop() || 'index.html';
+    const isEnglish = file.includes('-en');
+
+    langBtn.textContent = isEnglish ? 'PT' : 'EN';
+
+    langBtn.addEventListener('click', function() {
+      const map = {
+        'index.html': 'index-en.html',
+        'empresa.html': 'empresa-en.html',
+        'solu.html': 'solu-en.html',
+
+        'index-en.html': 'index.html',
+        'empresa-en.html': 'empresa.html',
+        'solu-en.html': 'solu.html',
+      };
+
+      const target = map[file] || (isEnglish ? 'index.html' : 'index-en.html');
+      const base = path.replace(file, '');
+      window.location.href = base + target;
+    });
+  }
 });
 </script>
 
