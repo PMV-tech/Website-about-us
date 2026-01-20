@@ -9,12 +9,47 @@
   
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
 
+<!-- Ícones para tema -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 :root{
   --blue:#1e90ff;
   --blue-glow:#4db2ff;
   --bg:#050505;
   --gray:#9ca3af;
+  --text-color: #fff;
+  --nav-bg: rgba(0,0,0,.7);
+  --sidebar-bg: rgba(5, 5, 5, 0.98);
+  --footer-bg: #000;
+  --button-text: #fff;
+  --button-text-hover: #fff;
+  --grid-color: rgba(255,255,255,.04);
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+  --border-color: rgba(30, 144, 255, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --hero-gradient: radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
+                   radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
+}
+
+/* TEMA CLARO */
+:root.light-theme {
+  --blue: #0066cc;
+  --blue-glow: #4db2ff;
+  --bg: #f5f9ff;
+  --gray: #5a6a85;
+  --text-color: #111827;
+  --nav-bg: rgba(245, 249, 255, 0.95);
+  --sidebar-bg: rgba(245, 249, 255, 0.98);
+  --footer-bg: #e6f0ff;
+  --button-text: #0066cc; /* Texto azul no tema claro */
+  --button-text-hover: #fff; /* Texto branco no hover */
+  --grid-color: rgba(0, 0, 0, 0.05);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 102, 204, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hero-gradient: radial-gradient(circle at top right, rgba(0,102,204,.1), transparent 45%),
+                   radial-gradient(circle at bottom left, rgba(0,102,204,.05), transparent 45%);
 }
 
 *{
@@ -22,12 +57,35 @@
   padding:0;
   box-sizing:border-box;
   font-family:'Montserrat', sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 body{
   background:var(--bg);
-  color:#fff;
+  color:var(--text-color);
   overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* BOTAO DE TEMA */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg);
+  background-color: rgba(30, 144, 255, 0.1);
 }
 
 /* NAV - MODIFICADO */
@@ -36,11 +94,12 @@ nav{
   display:flex;
   justify-content: space-between;
   align-items:center;
-  background:rgba(0,0,0,.7);
+  background:var(--nav-bg);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 /* LADO ESQUERDO: Apenas Logo */
@@ -54,15 +113,15 @@ nav img{
   width: auto;
 }
 
-/* LADO DIREITO: Texto + Hamburger */
+/* LADO DIREITO: Texto + Botão Idioma + Botão Tema + Hamburger */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .nav-brand {
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 700;
   margin-right: 10px;
@@ -72,7 +131,7 @@ nav img{
 .lang-btn{
   border:1px solid rgba(30,144,255,.6);
   background:transparent;
-  color:#fff;
+  color:var(--text-color);
   padding:10px 14px;
   border-radius:10px;
   font-weight:700;
@@ -102,7 +161,7 @@ nav img{
   display: block;
   height: 3px;
   width: 100%;
-  background-color: #fff;
+  background-color: var(--text-color);
   border-radius: 3px;
   transition: 0.3s;
 }
@@ -126,12 +185,12 @@ nav img{
   right: -300px; /* Escondido fora da tela */
   width: 280px;
   height: 100vh;
-  background: rgba(5, 5, 5, 0.98);
+  background: var(--sidebar-bg);
   padding: 100px 30px 40px;
   z-index: 999;
   transition: right 0.4s ease;
-  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
-  border-left: 1px solid rgba(30, 144, 255, 0.3);
+  box-shadow: -5px 0 30px var(--shadow-color);
+  border-left: 1px solid var(--border-color);
 }
 
 .sidebar.active {
@@ -164,12 +223,12 @@ nav img{
 
 .sidebar li {
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
   padding-bottom: 15px;
 }
 
 .sidebar a {
-  color: #d1d5db;
+  color: var(--gray);
   text-decoration: none;
   font-size: 1.1rem;
   letter-spacing: 1px;
@@ -190,7 +249,7 @@ nav img{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-bg);
   z-index: 998;
   opacity: 0;
   visibility: hidden;
@@ -209,9 +268,7 @@ nav img{
   grid-template-columns:1fr 1fr;
   align-items:center;
   padding: 140px 80px 80px;
-  background:
-    radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
+  background: var(--hero-gradient);
   margin-top: 90px;
 }
 
@@ -225,6 +282,7 @@ nav img{
   font-weight:900;
   line-height:1;
   text-transform:uppercase;
+  color: var(--text-color);
 }
 
 .hero-left h1 span{
@@ -248,6 +306,7 @@ nav img{
 .hero-right h2{
   font-size:2.8rem;
   font-weight:300;
+  color: var(--text-color);
 }
 
 .hero-right h2 strong{
@@ -262,20 +321,22 @@ nav img{
   max-width:500px;
 }
 
+/* BOTÃO "SAIBA MAIS" - CORRIGIDO */
 .hero-right button{
   padding:16px 45px;
   background:transparent;
   border:2px solid var(--blue);
-  color:#fff;
+  color:var(--button-text); /* Usa variável específica para botão */
   font-weight:700;
   letter-spacing:1px;
   cursor:pointer;
   box-shadow:0 0 30px rgba(30,144,255,.4);
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .hero-right button:hover{
   background:var(--blue);
+  color:var(--button-text-hover); /* Texto branco no hover */
 }
 
 /* DECOR ELEMENTS */
@@ -283,10 +344,18 @@ nav img{
   position:absolute;
   inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size:80px 80px;
   pointer-events:none;
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  background:var(--footer-bg);
+  color:var(--gray);
 }
 
 /* RESPONSIVO */
@@ -317,7 +386,7 @@ nav img{
   }
 
   .nav-right {
-    gap: 12px;
+    gap: 10px;
   }
 
   .hero-right{
@@ -339,14 +408,21 @@ nav img{
   .nav-brand {
     display: none;
   }
-}
-
-/* FOOTER */
-footer{
-  padding:40px;
-  text-align:center;
-  background:#000;
-  color:#9ca3af;
+  
+  .nav-right {
+    gap: 8px;
+  }
+  
+  .theme-toggle {
+    font-size: 1.2rem;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .lang-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
 }
 </style>
 </head>
@@ -359,6 +435,11 @@ footer{
 
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
+
+    <!-- BOTAO TEMA -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <i class="fas fa-sun"></i>
+    </button>
 
     <!-- BOTAO IDIOMA -->
     <button class="lang-btn" id="langToggle" type="button">EN</button>
@@ -480,10 +561,75 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = base + target;
     });
   }
+
+  // =========== SISTEMA DE TEMA ===========
+  
+  // Elementos do tema
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+  const root = document.documentElement;
+  
+  // Verificar preferência salva ou usar preferência do sistema
+  const savedTheme = localStorage.getItem('pmv-tech-theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  
+  // Aplicar tema: salvo > preferência do sistema > padrão (escuro)
+  let currentTheme = 'dark';
+  
+  if (savedTheme) {
+    currentTheme = savedTheme;
+  } else if (prefersLight) {
+    currentTheme = 'light';
+  }
+  
+  // Aplicar tema inicial
+  if (currentTheme === 'light') {
+    root.classList.add('light-theme');
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon'); // Tema claro = ícone de lua
+  } else {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun'); // Tema escuro = ícone de sol
+  }
+  
+  // Alternar tema ao clicar no botão
+  themeToggle.addEventListener('click', function() {
+    // Alternar classe no elemento root
+    root.classList.toggle('light-theme');
+    
+    // Verificar qual tema está ativo
+    const isLightTheme = root.classList.contains('light-theme');
+    
+    // Alternar ícone CORRETAMENTE
+    if (isLightTheme) {
+      // Tema claro ativo = mostrar ícone de lua
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+      // Salvar preferência
+      localStorage.setItem('pmv-tech-theme', 'light');
+    } else {
+      // Tema escuro ativo = mostrar ícone de sol
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+      // Salvar preferência
+      localStorage.setItem('pmv-tech-theme', 'dark');
+    }
+    
+    // Efeito visual de clique
+    themeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      themeToggle.style.transform = 'scale(1)';
+    }, 150);
+  });
+  
+  // Adicionar transição suave apenas após o carregamento da página
+  setTimeout(() => {
+    document.querySelectorAll('*').forEach(el => {
+      el.style.transition = 'background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease';
+    });
+  }, 100);
 });
 </script>
 
 </body>
 </html>
-
-
