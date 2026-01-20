@@ -56,7 +56,7 @@ nav img{
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 30px; /* Espaço entre texto e hamburger */
+  gap: 18px;
 }
 
 .nav-brand {
@@ -64,6 +64,24 @@ nav img{
   font-size: 1.2rem;
   font-weight: 700;
   margin-right: 10px;
+}
+
+/* BOTAO IDIOMA */
+.lang-btn{
+  border:1px solid rgba(30,144,255,.6);
+  background:transparent;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.2s;
+  line-height:1;
+}
+
+.lang-btn:hover{
+  background:rgba(30,144,255,.15);
 }
 
 /* HAMBURGER MENU */
@@ -188,11 +206,11 @@ nav img{
   display:grid;
   grid-template-columns:1fr 1fr;
   align-items:center;
-  padding: 140px 80px 80px; /* Aumentado top padding para nav fixo */
+  padding: 140px 80px 80px;
   background:
     radial-gradient(circle at top right, rgba(30,144,255,.15), transparent 45%),
     radial-gradient(circle at bottom left, rgba(30,144,255,.08), transparent 45%);
-  margin-top: 90px; /* Espaço para o nav fixo */
+  margin-top: 90px;
 }
 
 /* LEFT TEXT */
@@ -274,60 +292,53 @@ nav img{
   nav {
     padding: 15px 20px;
   }
-  
+
   .hero{
     padding: 120px 20px 60px;
     grid-template-columns: 1fr;
   }
-  
+
   .hero h1{
     font-size:2.5rem;
   }
-  
+
   .nav-brand {
     font-size: 1rem;
   }
-  
+
   nav img {
     height: 50px;
   }
-  
+
   .sidebar {
     width: 250px;
   }
-  
+
   .nav-right {
-    gap: 20px; /* Menos espaço em mobile */
+    gap: 12px;
   }
-  
+
   .hero-right{
     padding-left:0;
     margin-top: 60px;
   }
-  
+
   .hero-left h1 {
     font-size: 3rem;
   }
-  
+
   .hero-right h2 {
     font-size: 2rem;
   }
 }
 
-/* Para telas muito pequenas, esconder o texto PMV Tech */
+/* Para telas muito pequenas */
 @media(max-width: 480px) {
   .nav-brand {
-    display: none; /* Esconde "PMV Tech" em telas muito pequenas */
-  }
-  
-  .nav-right {
-    gap: 10px;
-  }
-  
-  .hero-left h1 {
-    font-size: 2.2rem;
+    display: none;
   }
 }
+
 /* FOOTER */
 footer{
   padding:40px;
@@ -340,14 +351,16 @@ footer{
 
 <body>
 <nav>
-  <!-- Lado esquerdo: Apenas Logo -->
   <div class="nav-left">
-    <img src="logo_pmv.png" alt="PMV Tech">
+    <a href="index.html"><img src="logo_pmv.png" alt="PMV Tech"></a>
   </div>
-  
-  <!-- Lado direito: Texto + Hamburger -->
+
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
+
+    <!-- BOTAO IDIOMA -->
+    <button class="lang-btn" id="langToggle" type="button">EN</button>
+
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -356,16 +369,14 @@ footer{
   </div>
 </nav>
 
-<!-- Overlay para fechar menu ao clicar fora -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <img src="logo_pmv.png" alt="PMV Tech">
     <span>PMV Tech</span>
   </div>
-  
+
   <ul>
     <li><a href="index.html">INÍCIO</a></li>
     <li><a href="solu.html">SOLUÇÕES</a></li>
@@ -398,12 +409,11 @@ footer{
 </footer>
 
 <script>
-// JavaScript para controlar a sidebar - EXATAMENTE IGUAL
 document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
-  
+
   // Abrir/fechar sidebar
   hamburger.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -411,14 +421,14 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.classList.toggle('active');
     overlay.classList.toggle('active');
   });
-  
+
   // Fechar sidebar ao clicar no overlay
   overlay.addEventListener('click', function() {
     hamburger.classList.remove('active');
     sidebar.classList.remove('active');
     this.classList.remove('active');
   });
-  
+
   // Fechar sidebar ao clicar fora
   document.addEventListener('click', function(e) {
     if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
@@ -427,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.remove('active');
     }
   });
-  
+
   // Fechar sidebar ao clicar em um link
   const sidebarLinks = document.querySelectorAll('.sidebar a');
   sidebarLinks.forEach(link => {
@@ -437,11 +447,37 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.remove('active');
     });
   });
-  
+
   // Prevenir fechamento ao clicar dentro da sidebar
   sidebar.addEventListener('click', function(e) {
     e.stopPropagation();
   });
+
+  // ---- IDIOMA (PT/EN) ----
+  const langBtn = document.getElementById('langToggle');
+  if (langBtn) {
+    const path = window.location.pathname;
+    const file = path.split('/').pop() || 'index.html';
+    const isEnglish = file.includes('-en');
+
+    langBtn.textContent = isEnglish ? 'PT' : 'EN';
+
+    langBtn.addEventListener('click', function() {
+      const map = {
+        'index.html': 'index-en.html',
+        'empresa.html': 'empresa-en.html',
+        'solu.html': 'solu-en.html',
+
+        'index-en.html': 'index.html',
+        'empresa-en.html': 'empresa.html',
+        'solu-en.html': 'solu.html',
+      };
+
+      const target = map[file] || (isEnglish ? 'index.html' : 'index-en.html');
+      const base = path.replace(file, '');
+      window.location.href = base + target;
+    });
+  }
 });
 </script>
 
