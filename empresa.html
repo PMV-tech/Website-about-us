@@ -6,6 +6,8 @@
 <title>PMV Tech • Empresa</title>
 <link rel ="icon" href = "icon_bar.ico">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+<!-- Ícones para tema -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root{
@@ -14,6 +16,35 @@
   --bg:#050505;
   --bg-2:#0b0b0b;
   --gray:#9ca3af;
+  --text-color: #fff;
+  --nav-bg: rgba(0,0,0,.7);
+  --sidebar-bg: rgba(5, 5, 5, 0.98);
+  --footer-bg: #000;
+  --box-bg: transparent;
+  --box-border: rgba(30,144,255,.3);
+  --overlay-bg: rgba(0, 0, 0, 0.8);
+  --border-color: rgba(30, 144, 255, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --hero-gradient: radial-gradient(circle at center, rgba(30,144,255,.15), transparent 45%);
+}
+
+/* TEMA CLARO */
+:root.light-theme {
+  --blue: #0066cc;
+  --blue-glow: #4db2ff;
+  --bg: #f5f9ff;
+  --bg-2: #eef5ff;
+  --gray: #5a6a85;
+  --text-color: #111827;
+  --nav-bg: rgba(245, 249, 255, 0.95);
+  --sidebar-bg: rgba(245, 249, 255, 0.98);
+  --footer-bg: #e6f0ff;
+  --box-bg: #ffffff;
+  --box-border: rgba(0, 102, 204, 0.3);
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 102, 204, 0.3);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --hero-gradient: radial-gradient(circle at center, rgba(0,102,204,.1), transparent 45%);
 }
 
 *{
@@ -21,25 +52,50 @@
   padding:0;
   box-sizing:border-box;
   font-family:'Montserrat', sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 body{
   background:var(--bg);
-  color:#fff;
+  color:var(--text-color);
   overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* BOTAO DE TEMA */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(15deg);
+  background-color: rgba(30, 144, 255, 0.1);
 }
 
 /* NAV - MODIFICADO */
 nav{
-  padding:20px 40px;
+  padding:15px 40px; /* Reduzido de 20px para 15px */
   display:flex;
   justify-content: space-between;
   align-items:center;
-  background:rgba(0,0,0,.7);
+  background:var(--nav-bg);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  backdrop-filter: blur(10px);
+  height: 70px; /* Altura fixa para consistência */
 }
 
 /* LADO ESQUERDO: Apenas Logo */
@@ -49,19 +105,19 @@ nav{
 }
 
 nav img{
-  height: 50px;
+  height: 45px; /* Reduzido de 50px para 45px */
   width: auto;
 }
 
-/* LADO DIREITO: Texto + Botao idioma + Hamburger */
+/* LADO DIREITO: Texto + Botao idioma + Botão Tema + Hamburger */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 15px;
 }
 
 .nav-brand {
-  color: #fff;
+  color: var(--text-color);
   font-size: 1.2rem;
   font-weight: 700;
   margin-right: 10px;
@@ -71,14 +127,15 @@ nav img{
 .lang-btn{
   border:1px solid rgba(30,144,255,.6);
   background:transparent;
-  color:#fff;
-  padding:10px 14px;
+  color:var(--text-color);
+  padding:8px 12px; /* Reduzido de 10px 14px */
   border-radius:10px;
   font-weight:700;
   letter-spacing:1px;
   cursor:pointer;
   transition:.2s;
   line-height:1;
+  font-size: 0.9rem;
 }
 
 .lang-btn:hover{
@@ -90,8 +147,8 @@ nav img{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30px;
-  height: 21px;
+  width: 26px; /* Reduzido de 30px */
+  height: 18px; /* Reduzido de 21px */
   cursor: pointer;
   z-index: 1001;
   transition: transform 0.3s ease;
@@ -99,15 +156,15 @@ nav img{
 
 .hamburger span {
   display: block;
-  height: 3px;
+  height: 2.5px; /* Reduzido de 3px */
   width: 100%;
-  background-color: #fff;
-  border-radius: 3px;
+  background-color: var(--text-color);
+  border-radius: 2px;
   transition: 0.3s;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: translateY(9px) rotate(45deg);
+  transform: translateY(7.5px) rotate(45deg); /* Ajustado para nova altura */
 }
 
 .hamburger.active span:nth-child(2) {
@@ -115,7 +172,7 @@ nav img{
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: translateY(-9px) rotate(-45deg);
+  transform: translateY(-7.5px) rotate(-45deg); /* Ajustado para nova altura */
 }
 
 /* SIDEBAR */
@@ -125,12 +182,12 @@ nav img{
   right: -300px; /* Escondido fora da tela */
   width: 280px;
   height: 100vh;
-  background: rgba(5, 5, 5, 0.98);
-  padding: 100px 30px 40px;
+  background: var(--sidebar-bg);
+  padding: 90px 30px 40px; /* Reduzido de 100px para 90px no topo */
   z-index: 999;
   transition: right 0.4s ease;
-  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.8);
-  border-left: 1px solid rgba(30, 144, 255, 0.3);
+  box-shadow: -5px 0 30px var(--shadow-color);
+  border-left: 1px solid var(--border-color);
 }
 
 .sidebar.active {
@@ -139,7 +196,7 @@ nav img{
 
 .sidebar-header {
   position: absolute;
-  top: 25px;
+  top: 20px; /* Reduzido de 25px */
   left: 30px;
   display: flex;
   align-items: center;
@@ -163,12 +220,12 @@ nav img{
 
 .sidebar li {
   margin-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
   padding-bottom: 15px;
 }
 
 .sidebar a {
-  color: #d1d5db;
+  color: var(--gray);
   text-decoration: none;
   font-size: 1.1rem;
   letter-spacing: 1px;
@@ -189,7 +246,7 @@ nav img{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--overlay-bg);
   z-index: 998;
   opacity: 0;
   visibility: hidden;
@@ -208,9 +265,9 @@ nav img{
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 80px 80px;
-  background: radial-gradient(circle at center, rgba(30,144,255,.15), transparent 45%);
-  margin-top: 70px;
+  padding: 100px 80px 80px; /* Ajustado padding */
+  background: var(--hero-gradient);
+  margin-top: 70px; /* Reduzido de 70px para 70px (já estava ajustado) */
   text-align: center;
 }
 
@@ -224,6 +281,7 @@ nav img{
   font-weight:900;
   text-transform:uppercase;
   margin-bottom: 25px;
+  color: var(--text-color);
 }
 
 .hero h1 span{
@@ -265,7 +323,7 @@ nav img{
 
 .name-item {
   font-size: 1.2rem;
-  color: #d1d5db;
+  color: var(--text-color);
   line-height: 1.8;
   text-align: center;
   width: 100%;
@@ -294,7 +352,8 @@ section{
 }
 
 .box{
-  border:1px solid rgba(30,144,255,.3);
+  background: var(--box-bg);
+  border:1px solid var(--box-border);
   padding:40px;
   box-shadow:0 0 30px rgba(30,144,255,.15);
   display:grid;
@@ -313,7 +372,7 @@ section{
 }
 
 .box p{
-  color:#d1d5db;
+  color:var(--text-color);
   line-height:1.8;
 }
 
@@ -321,18 +380,24 @@ section{
 footer{
   padding:40px;
   text-align:center;
-  background:#000;
-  color:#9ca3af;
+  background:var(--footer-bg);
+  color:var(--gray);
 }
 
 /* RESPONSIVO */
 @media(max-width:900px){
   nav {
-    padding: 12px 20px;
+    padding: 12px 20px; /* Reduzido de 15px */
+    height: 65px;
   }
 
   .hero, section{
     padding: 80px 30px 60px;
+  }
+
+  .hero {
+    margin-top: 65px; /* Ajustado para altura do nav */
+    padding-top: 90px; /* Ajustado */
   }
 
   .hero h1{
@@ -344,28 +409,28 @@ footer{
   }
 
   nav img {
-    height: 50px;
+    height: 40px; /* Reduzido de 50px */
   }
 
   .sidebar {
     width: 250px;
+    padding: 85px 25px 40px; /* Ajustado */
   }
 
   .nav-right {
-    gap: 12px;
+    gap: 10px;
   }
 
   .grid {
     padding: 0 20px;
   }
 
-  .hero {
-    margin-top: 60px;
-    padding-top: 70px;
-  }
-
   .name-item {
     font-size: 1.1rem;
+  }
+  
+  .sidebar-header {
+    top: 18px;
   }
 }
 
@@ -376,7 +441,23 @@ footer{
   }
 
   .nav-right {
-    gap: 10px;
+    gap: 8px;
+  }
+  
+  .theme-toggle {
+    font-size: 1.2rem;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .lang-btn {
+    padding: 7px 10px;
+    font-size: 0.85rem;
+  }
+  
+  nav {
+    padding: 10px 15px;
+    height: 60px;
   }
 
   .hero h1 {
@@ -388,12 +469,21 @@ footer{
   }
 
   .hero {
-    margin-top: 50px;
-    padding-top: 60px;
+    margin-top: 60px;
+    padding: 80px 20px 60px;
   }
 
   .name-item {
     font-size: 1rem;
+  }
+  
+  nav img {
+    height: 38px;
+  }
+  
+  .hamburger {
+    width: 24px;
+    height: 16px;
   }
 }
 </style>
@@ -407,6 +497,11 @@ footer{
 
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
+    
+    <!-- BOTAO TEMA -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+      <i class="fas fa-sun"></i>
+    </button>
 
     <!-- BOTAO IDIOMA -->
     <button class="lang-btn" id="langToggle" type="button">EN</button>
@@ -570,10 +665,75 @@ document.addEventListener('DOMContentLoaded', function() {
       window.location.href = base + target;
     });
   }
+
+  // =========== SISTEMA DE TEMA ===========
+  
+  // Elementos do tema
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = themeToggle.querySelector('i');
+  const root = document.documentElement;
+  
+  // Verificar preferência salva ou usar preferência do sistema
+  const savedTheme = localStorage.getItem('pmv-tech-theme');
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  
+  // Aplicar tema: salvo > preferência do sistema > padrão (escuro)
+  let currentTheme = 'dark';
+  
+  if (savedTheme) {
+    currentTheme = savedTheme;
+  } else if (prefersLight) {
+    currentTheme = 'light';
+  }
+  
+  // Aplicar tema inicial
+  if (currentTheme === 'light') {
+    root.classList.add('light-theme');
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon'); // Tema claro = ícone de lua
+  } else {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun'); // Tema escuro = ícone de sol
+  }
+  
+  // Alternar tema ao clicar no botão
+  themeToggle.addEventListener('click', function() {
+    // Alternar classe no elemento root
+    root.classList.toggle('light-theme');
+    
+    // Verificar qual tema está ativo
+    const isLightTheme = root.classList.contains('light-theme');
+    
+    // Alternar ícone CORRETAMENTE
+    if (isLightTheme) {
+      // Tema claro ativo = mostrar ícone de lua
+      themeIcon.classList.remove('fa-sun');
+      themeIcon.classList.add('fa-moon');
+      // Salvar preferência
+      localStorage.setItem('pmv-tech-theme', 'light');
+    } else {
+      // Tema escuro ativo = mostrar ícone de sol
+      themeIcon.classList.remove('fa-moon');
+      themeIcon.classList.add('fa-sun');
+      // Salvar preferência
+      localStorage.setItem('pmv-tech-theme', 'dark');
+    }
+    
+    // Efeito visual de clique
+    themeToggle.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      themeToggle.style.transform = 'scale(1)';
+    }, 150);
+  });
+  
+  // Adicionar transição suave apenas após o carregamento da página
+  setTimeout(() => {
+    document.querySelectorAll('*').forEach(el => {
+      el.style.transition = 'background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease';
+    });
+  }, 100);
 });
 </script>
 
 </body>
 </html>
-
-
