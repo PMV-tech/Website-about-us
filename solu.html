@@ -6,7 +6,8 @@
 <title>PMV Tech | Soluções</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
-<link rel ="icon" href = "icon_bar.ico">
+<link rel="icon" href="icon_bar.ico">
+
 <style>
 :root{
   --blue:#1e90ff;
@@ -52,11 +53,11 @@ nav img{
   width: auto;
 }
 
-/* LADO DIREITO: Texto + Hamburger */
+/* LADO DIREITO: Texto + Botão Idioma + Hamburger */
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 18px;
 }
 
 .nav-brand {
@@ -64,6 +65,24 @@ nav img{
   font-size: 1.2rem;
   font-weight: 700;
   margin-right: 10px;
+}
+
+/* BOTAO IDIOMA */
+.lang-btn{
+  border:1px solid rgba(30,144,255,.6);
+  background:transparent;
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.2s;
+  line-height:1;
+}
+
+.lang-btn:hover{
+  background:rgba(30,144,255,.15);
 }
 
 /* HAMBURGER MENU */
@@ -249,33 +268,33 @@ nav img{
   nav {
     padding: 15px 20px;
   }
-  
+
   .hero{
     padding: 120px 20px 60px;
   }
-  
+
   .hero h1{
     font-size:3rem;
   }
-  
+
   .solutions{
     padding:40px;
   }
-  
+
   .nav-brand {
     font-size: 1rem;
   }
-  
+
   nav img {
     height: 50px;
   }
-  
+
   .sidebar {
     width: 250px;
   }
-  
+
   .nav-right {
-    gap: 20px;
+    gap: 12px;
   }
 }
 
@@ -284,19 +303,20 @@ nav img{
   .nav-brand {
     display: none;
   }
-  
+
   .nav-right {
     gap: 10px;
   }
-  
+
   .hero h1 {
     font-size: 2.2rem;
   }
-  
+
   .solutions {
     padding: 20px;
   }
 }
+
 /* FOOTER */
 footer{
   padding:40px;
@@ -309,14 +329,16 @@ footer{
 
 <body>
 <nav>
-  <!-- Lado esquerdo: Apenas Logo -->
   <div class="nav-left">
     <a href="index.html"><img src="logo_pmv.png" alt="PMV Tech"></a> 
   </div>
-  
-  <!-- Lado direito: Texto + Hamburger -->
+
   <div class="nav-right">
     <span class="nav-brand">PMV Tech</span>
+
+    <!-- BOTAO IDIOMA -->
+    <button class="lang-btn" id="langToggle" type="button">EN</button>
+
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -325,20 +347,18 @@ footer{
   </div>
 </nav>
 
-<!-- Overlay para fechar menu ao clicar fora -->
 <div class="overlay" id="overlay"></div>
 
-<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <img src="logo_pmv.png" alt="PMV Tech">
     <span>PMV Tech</span>
   </div>
-  
+
   <ul>
     <li><a href="index.html">INÍCIO</a></li>
     <li><a href="solu.html">SOLUÇÕES</a></li>
-    <li><a href="empresa.html">EMPRESA</a></li>
+    <li><a href="empresa.html">SOBRE NÓS</a></li>
     <li><a href="https://www.instagram.com/edu.f26/?next=%2F">CONTATO</a></li>
   </ul>
 </div>
@@ -389,12 +409,11 @@ footer{
 </footer>
 
 <script>
-// JavaScript PARA CONTROLAR A SIDEBAR - EXATAMENTE IGUAL
 document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.getElementById('hamburger');
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('overlay');
-  
+
   // Abrir/fechar sidebar
   hamburger.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -402,14 +421,14 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.classList.toggle('active');
     overlay.classList.toggle('active');
   });
-  
+
   // Fechar sidebar ao clicar no overlay
   overlay.addEventListener('click', function() {
     hamburger.classList.remove('active');
     sidebar.classList.remove('active');
     this.classList.remove('active');
   });
-  
+
   // Fechar sidebar ao clicar fora
   document.addEventListener('click', function(e) {
     if (!sidebar.contains(e.target) && !hamburger.contains(e.target)) {
@@ -418,7 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.remove('active');
     }
   });
-  
+
   // Fechar sidebar ao clicar em um link
   const sidebarLinks = document.querySelectorAll('.sidebar a');
   sidebarLinks.forEach(link => {
@@ -428,14 +447,39 @@ document.addEventListener('DOMContentLoaded', function() {
       overlay.classList.remove('active');
     });
   });
-  
+
   // Prevenir fechamento ao clicar dentro da sidebar
   sidebar.addEventListener('click', function(e) {
     e.stopPropagation();
   });
+
+  // ---- IDIOMA (PT/EN) ----
+  const langBtn = document.getElementById('langToggle');
+  if (langBtn) {
+    const path = window.location.pathname;
+    const file = path.split('/').pop() || 'index.html';
+    const isEnglish = file.includes('-en');
+
+    langBtn.textContent = isEnglish ? 'PT' : 'EN';
+
+    langBtn.addEventListener('click', function() {
+      const map = {
+        'index.html': 'index-en.html',
+        'empresa.html': 'empresa-en.html',
+        'solu.html': 'solu-en.html',
+
+        'index-en.html': 'index.html',
+        'empresa-en.html': 'empresa.html',
+        'solu-en.html': 'solu.html',
+      };
+
+      const target = map[file] || (isEnglish ? 'index.html' : 'index-en.html');
+      const base = path.replace(file, '');
+      window.location.href = base + target;
+    });
+  }
 });
 </script>
 
 </body>
 </html>
-
