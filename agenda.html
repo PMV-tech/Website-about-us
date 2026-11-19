@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07101b">
+<meta name="description" content="Demonstração interativa de sistema de agenda e clientes da PMV Sistemas. Agende horários, cadastre clientes e serviços e acompanhe o faturamento do dia, direto no navegador.">
+<title>Demonstração de Agenda e Clientes | PMV Sistemas</title>
+<link rel="canonical" href="https://pmv-tech.github.io/Website-about-us/agenda.html"><meta property="og:site_name" content="PMV Sistemas"><meta property="og:locale" content="pt_BR"><meta property="og:url" content="https://pmv-tech.github.io/Website-about-us/agenda.html"><meta property="og:image" content="https://pmv-tech.github.io/Website-about-us/assets/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="PMV Sistemas — Tecnologia que move negócios"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website"><meta property="og:title" content="Demonstração de Agenda e Clientes | PMV Sistemas"><meta property="og:description" content="Teste um sistema de agenda: horários, clientes, serviços e faturamento do dia, direto no navegador.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="agenda.css">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script src="agenda.js" defer></script>
+<script src="consent.js" defer></script>
+</head>
+<body class="ag-body">
+<header class="ag-top">
+  <a class="brand" href="index.html" aria-label="PMV Sistemas - voltar ao site"><span class="brand-letter">PM<span>V</span></span><span class="brand-caption">TECH<span>•</span>SISTEMAS</span></a>
+  <nav class="ag-tabs" role="tablist" aria-label="Seções da demonstração">
+    <button class="ag-tab active" role="tab" aria-selected="true" data-view="agenda">Agenda</button>
+    <button class="ag-tab" role="tab" aria-selected="false" data-view="clientes">Clientes</button>
+    <button class="ag-tab" role="tab" aria-selected="false" data-view="servicos">Serviços</button>
+  </nav>
+  <a class="ag-back" href="index.html">Voltar ao site ↗</a>
+</header>
+
+<main class="ag-main">
+  <div class="ag-note" id="ag-note">
+    <span>ⓘ</span>
+    <p><strong>Esta é uma demonstração.</strong> Clientes, horários e valores são fictícios. O que você cadastrar fica salvo só neste navegador e não é enviado à PMV.</p>
+    <button class="ag-icon-btn" id="note-close" aria-label="Fechar aviso">×</button>
+  </div>
+
+  <!-- AGENDA -->
+  <section class="ag-view" id="view-agenda">
+    <div class="ag-head">
+      <div>
+        <p class="overline">PMV / AGENDA</p>
+        <h1>Agenda do dia</h1>
+      </div>
+      <button class="btn btn-primary" id="new-appt">+ Novo agendamento</button>
+    </div>
+
+    <div class="ag-datebar">
+      <button class="ag-icon-btn" id="day-prev" aria-label="Dia anterior">‹</button>
+      <input type="date" id="day-input" aria-label="Escolher data">
+      <button class="ag-icon-btn" id="day-next" aria-label="Próximo dia">›</button>
+      <button class="ag-chip" id="day-today">Hoje</button>
+      <span class="ag-datelabel" id="day-label"></span>
+    </div>
+
+    <div class="ag-kpis">
+      <div class="ag-kpi"><span>Agendamentos</span><b id="k-total">0</b><small>no dia</small></div>
+      <div class="ag-kpi"><span>Confirmados</span><b id="k-conf" class="t-teal">0</b><small>clientes confirmados</small></div>
+      <div class="ag-kpi"><span>Faturamento previsto</span><b id="k-rev">R$ 0</b><small>sem cancelados</small></div>
+      <div class="ag-kpi"><span>Horários livres</span><b id="k-free">0</b><small>entre 08h e 19h</small></div>
+    </div>
+
+    <div class="ag-grid">
+      <div class="ag-panel">
+        <div class="ag-panel-head"><h2>Horários</h2><div class="ag-filter" id="pro-filter"></div></div>
+        <ol class="ag-slots" id="slots"></ol>
+      </div>
+      <aside class="ag-panel ag-side">
+        <h2>Próximos clientes</h2>
+        <ul class="ag-next" id="next-list"></ul>
+        <div class="ag-side-cta">
+          <p>Imagine sua agenda assim, com seus serviços e profissionais.</p>
+          <a class="btn btn-primary" href="index.html#contato">Quero um sistema assim ↗</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- CLIENTES -->
+  <section class="ag-view" id="view-clientes" hidden>
+    <div class="ag-head">
+      <div><p class="overline">PMV / CLIENTES</p><h1>Clientes</h1></div>
+      <button class="btn btn-primary" id="new-client">+ Novo cliente</button>
+    </div>
+    <div class="ag-panel">
+      <input class="ag-search" id="client-search" type="search" placeholder="Buscar por nome ou telefone…" aria-label="Buscar cliente">
+      <div class="ag-table-wrap"><table class="ag-table"><thead><tr><th>Cliente</th><th>Telefone</th><th>Visitas</th><th>Último atendimento</th><th>Total gasto</th><th></th></tr></thead><tbody id="client-rows"></tbody></table></div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="ag-view" id="view-servicos" hidden>
+    <div class="ag-head">
+      <div><p class="overline">PMV / SERVIÇOS</p><h1>Serviços</h1></div>
+      <button class="btn btn-primary" id="new-service">+ Novo serviço</button>
+    </div>
+    <div class="ag-services" id="service-cards"></div>
+  </section>
+
+  <div class="ag-foot">
+    <button class="ag-link" id="reset-demo">Restaurar exemplos</button>
+    <span>© <span data-year></span> PMV Sistemas · Demonstração ilustrativa · <a href="privacidade.html">Privacidade</a> · <a href="termos.html">Termos</a></span>
+  </div>
+</main>
+
+<!-- MODAL -->
+<dialog class="ag-modal" id="modal">
+  <form method="dialog" id="modal-form" class="ag-form">
+    <div class="ag-form-head"><h2 id="modal-title">Novo agendamento</h2><button type="button" class="ag-icon-btn" id="modal-close" aria-label="Fechar">×</button></div>
+    <div id="modal-body" class="ag-form-body"></div>
+    <div class="ag-form-actions">
+      <button type="button" class="ag-link danger" id="modal-delete" hidden>Excluir</button>
+      <span class="spacer"></span>
+      <button type="button" class="btn btn-outline" id="modal-cancel">Cancelar</button>
+      <button type="submit" class="btn btn-primary" id="modal-save">Salvar</button>
+    </div>
+  </form>
+</dialog>
+<div class="ag-toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
