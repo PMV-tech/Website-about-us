@@ -19,8 +19,15 @@
     animated.forEach(el=>observer.observe(el));
   } else animated.forEach(el=>el.classList.add('is-visible'));
   const form = document.querySelector('#briefing-form');
-  if(form){form.addEventListener('submit', async e => {
+  // Números de WhatsApp que recebem o briefing (DDI + DDD + número)
+  const WHATSAPP_NUMBERS=['5511987244587','5511926115699'];
+  const waLink=(num,msg)=>`https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+  const formStartedAt=Date.now();
+  if(form){form.addEventListener('submit', e => {
     e.preventDefault();
+    // Anti-spam: robôs costumam preencher o campo escondido ou enviar instantaneamente.
+    const honeypot=document.querySelector('#brief-website');
+    if ((honeypot && honeypot.value) || Date.now()-formStartedAt<2500) return;
     if (!form.reportValidity()) return;
     const name=document.querySelector('#brief-name').value.trim();
     const type=document.querySelector('#brief-type').value;
@@ -28,15 +35,14 @@
     if (!name || !type || !details) return;
     const msg=`Olá, equipe PMV! Meu nome é ${name}.\n\nGostaria de conversar sobre: ${type}.\n\nMinha ideia/necessidade:\n${details}\n\nPodemos conversar sobre as possibilidades?`;
     const feedback=document.querySelector('#briefing-feedback'),result=document.querySelector('#briefing-result');
-    let copied=false;
-    try{await navigator.clipboard.writeText(msg);copied=true;}catch(_){
-      try{const area=document.createElement('textarea');area.value=msg;area.style.position='fixed';area.style.opacity='0';document.body.append(area);area.select();copied=document.execCommand('copy');area.remove();}catch(_){copied=false;}
-    }
+    WHATSAPP_NUMBERS.forEach((num,i)=>{const a=document.querySelector(`#wa-${i+1}`);if(a)a.href=waLink(num,msg);});
+    // Abre o WhatsApp do primeiro atendimento; o segundo fica disponível no botão abaixo.
+    const opened=window.open(waLink(WHATSAPP_NUMBERS[0],msg),'_blank');
+    if(opened){try{opened.opener=null;}catch(_){}}
     result.hidden=false;
-    if(copied){feedback.textContent='Mensagem copiada! Agora é só abrir o Instagram da PMV e colar no direct.';}
-    else{feedback.textContent='Não foi possível copiar automaticamente. Selecione e copie a mensagem abaixo:';
-      let out=result.querySelector('textarea');if(!out){out=document.createElement('textarea');out.readOnly=true;out.rows=7;out.style.cssText='width:100%;background:#07111c;color:white;border:1px solid #3c6570;border-radius:8px;padding:12px;';result.append(out);}out.value=msg;
-    }
+    feedback.textContent=opened
+      ? 'O WhatsApp foi aberto com sua mensagem. Toque em enviar! Se preferir, envie também para o outro atendimento:'
+      : 'Escolha um atendimento abaixo para abrir o WhatsApp com sua mensagem pronta:';
     result.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
   });}
 })();
